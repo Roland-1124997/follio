@@ -1,0 +1,194 @@
+<template>
+	<div class="">
+		<div class="">
+			<div v-if="editor">
+				<div class="grid grid-cols-1 md:grid-cols-[1fr_auto] h-full">
+					<div class="z-10 bg-white md:pr-4 md:border-r">
+						<div class="relative flex-1 mt-1 overflow-x-hidden overflow-y-auto outline-none appearance-none md:mt-auto h-[69vh] md:h-[76vh]">
+							<div v-if="editable" class="sticky -top-[2px] z-10 pb-1 bg-white">
+								<TiptapMenu class="flex items-center p-1 py-1 mb-2 overflow-x-auto underline border rounded-lg bg-gray-50" :editor="editor" />
+							</div>
+
+							<TiptapEditor :editor="editor" />
+						</div>
+
+						<div class="z-10 pt-3 bg-white">
+							<FormBase :appendToBody :request :schema="schema.article.frontend" v-slot="{ loading }">
+								<div class="sr-only" aria-hidden>
+									<UtilsInput name="title" :initial-value="title" />
+									<UtilsInput name="description" :initial-value="description" />
+									<UtilsInput name="words" :initial-value="words" type="number" />
+									<UtilsInput name="topics" :initial-value="topics" type="array" />
+								</div>
+
+								<div class="flex items-center gap-2 p-1 py-1 overflow-x-auto text-sm border rounded-lg bg-gray-50">
+									<p class="p-1 px-2 text-blue-600 border border-blue-600 rounded-md w-fit">{{ words }} woorden</p>
+
+									<div @click.stop="toggleEditable" class="flex items-center justify-center gap-1 p-1 px-2 text-white bg-blue-600 border-blue-500 rounded-md outline-none cursor-pointer hover:bg-blue-700 hover:text-white focus:text-white focus:border-blue-600 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+										<span class="">{{ !editable ? "Bewerken" : "Voorbeeld" }}</span>
+									</div>
+
+									<button class="flex items-center justify-center gap-1 p-1 px-2 text-white bg-blue-600 border-blue-500 rounded-md outline-none hover:bg-blue-700 hover:text-white focus:text-white focus:border-blue-600 hover:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400">
+										<icon name="akar-icons:save" class="w-4 h-4" aria-hidden="true" />
+										<span class="">Artikel opslaan</span>
+									</button>
+								</div>
+							</FormBase>
+						</div>
+					</div>
+					<TiptapTableList :Anchors="Anchors" v-model="activeId" />
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script setup lang="ts">
+	import TableOfContents from "@tiptap/extension-table-of-contents";
+
+	definePageMeta({
+		middleware: "authorized",
+	});
+
+	useSeoMeta({
+		title: "Artikel shrijven",
+		description: "Schrijf een nieuw artikel of blog post voor je website.",
+		ogTitle: "Artikel shrijven",
+		ogDescription: "Schrijf een nieuw artikel of blog post voor je website.",
+		ogUrl: "/articles",
+		ogImage: "/icons/icon_512.svg",
+		twitterTitle: "Artikel shrijven",
+		twitterDescription: "Schrijf een nieuw artikel of blog post voor je website.",
+		twitterImage: "/icons/icon_512.svg",
+		twitterCard: "app",
+	});
+
+	useHead({
+		htmlAttrs: {
+			lang: "nl",
+		},
+		link: [
+			{
+				rel: "icon",
+				type: "image/png",
+				href: "/icons/icon_512.png",
+			},
+		],
+	});
+
+	const { addToast } = useToast();
+
+	const content = ref<Record<string, any>>();
+	const activeId: any = ref(null);
+	const editable = ref(true);
+
+	const editId = computed(() => {
+		const route = useRoute();
+		return route.query.edit as string | undefined;
+	});
+
+	if (editId.value) {
+		const { data } = await useFetch(`/api/articles/${editId.value}`);
+		if (data.value) content.value = data.value.data.content;
+	}
+
+	const title = ref("");
+	const description = ref("");
+	const Anchors: any = ref([]);
+	const words = ref(0);
+	const topics = ref<string[]>([]);
+
+	const populateUniqueAnchors = (uniqueAnchors: Anchor[], seenAnchorIds: Set<string>, anchor: Anchor) => {
+		if (seenAnchorIds.has(anchor.id)) return;
+
+		uniqueAnchors.push({
+			id: anchor.id,
+			level: anchor.level,
+			itemIndex: anchor.itemIndex,
+			textContent: anchor.textContent,
+		});
+
+		seenAnchorIds.add(anchor.id);
+	};
+
+	const populateFields = (editor: Editor) => {
+		content.value = editor.getJSON();
+		words.value = editor.storage.characterCount.words();
+		title.value = editor.$doc.firstChild?.textContent || "Ongetiteld Artikel";
+
+		const items = editor.getJSON().content?.[1]?.content ?? [];
+		topics.value = items.map((item: any) => item.text?.trim()).filter((text: string | undefined) => !!text);
+
+		const { filtered } = useFilterParagraphs(content.value?.content, "paragraph");
+		description.value = filtered.value[0] ? filtered.value[0].content[0]?.text : "";
+	};
+
+	const populateAnchors = (anchors: Anchor[]) => {
+		const uniqueAnchors: Anchor[] = [];
+		const seenAnchorIds = new Set<string>();
+
+		anchors.forEach((anchor) => populateUniqueAnchors(uniqueAnchors, seenAnchorIds, anchor));
+		Anchors.value = uniqueAnchors;
+	};
+
+	const editor = useEditor({
+		content: content.value,
+		editable: editable.value,
+		extensions: [
+			...articleExtensions,
+			TableOfContents.configure({
+				onUpdate: (anchors) => populateAnchors(anchors),
+			}),
+		],
+		onCreate: ({ editor }) => populateFields(editor),
+		onUpdate: ({ editor }) => populateFields(editor),
+	});
+
+	onUnmounted(() => {
+		if (editor.value) editor.value.destroy();
+	});
+
+	const toggleEditable = () => {
+		editable.value = !editable.value;
+		if (editor.value) editor.value.setEditable(editable.value);
+
+		addToast({
+			message: `De editor is nu in ${editable.value ? "bewerkings" : "voorbeeld"}-modus.`,
+			type: "info",
+		});
+	};
+
+	const successMessage = editId.value ? "Het artikel is succesvol bijgewerkt." : "Het artikel is succesvol aangemaakt.";
+
+	const failureMessage = editId.value ? "Er is een fout opgetreden bij het bijwerken van het artikel. Probeer het later opnieuw." : "Er is een fout opgetreden bij het aanmaken van het artikel. Probeer het later opnieuw.";
+
+	const { upload, setFormData } = useHandleFormData(successMessage, failureMessage);
+
+	const request: requestOptions<{ id: number }> = {
+		url: editId.value ? `/api/articles/${editId.value}` : "/api/articles",
+		method: editId.value ? "PATCH" : "POST",
+		onsuccess: (response) => upload(response.data?.id),
+		onfailure: () =>
+			addToast({
+				message: failureMessage,
+				type: "error",
+			}),
+	};
+
+	const appendToBody = async (values: any) => {
+		addToast({
+			message: "Het artikel wordt opgeslagen...",
+			type: "info",
+		});
+
+		const { document, formData } = await createContent(content.value);
+		content.value = document;
+		setFormData(formData);
+
+		return {
+			...values,
+			content: content.value,
+			anchors: Anchors.value,
+		};
+	};
+</script>

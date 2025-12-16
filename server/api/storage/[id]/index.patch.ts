@@ -1,0 +1,24 @@
+
+export default defineSupabaseEventHandler(async (event, { server }) => {
+
+    const id = getRouterParams(event).id;
+
+    const { data, error } = await server.from('attachments').select('*').eq('id', id).single();
+    if (error || !data) return useReturnResponse(event, internalServerError);
+
+    const { error: insertError} = await server.from('attachments').update({
+        published: !data.published
+    }).eq('name', data.name)
+
+    if (insertError) useReturnResponse(event, internalServerError)
+
+    return useReturnResponse(event, {
+        status: {
+            code: 200,
+            message: 'Bestand gepubliceerd bijgewerkt',
+            success: true
+        }
+    })
+
+});
+
