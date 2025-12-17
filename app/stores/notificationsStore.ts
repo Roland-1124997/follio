@@ -19,6 +19,9 @@ export const useNotificationsStore = defineStore("Notifications", () => {
         return null;
     }
 
+    watch(unseen, async (count) => await setBadge(count)), { immediate: true };
+
+
     const refresh = async () => {
 
         const { data, error: Error } = await Request.Get();
@@ -26,6 +29,8 @@ export const useNotificationsStore = defineStore("Notifications", () => {
         if (!Error && data) {
             messages.value = data.data?.messages || [];
             unseen.value = data.data?.unseen || 0;
+
+            await setBadge(unseen.value);
         }
 
         else error.value = Error;
@@ -39,6 +44,8 @@ export const useNotificationsStore = defineStore("Notifications", () => {
         if (!Error.value && data.value) {
             messages.value = data.value?.data.messages || [];
             unseen.value = data.value?.data.unseen || 0;
+
+            await setBadge(unseen.value);
         }
 
         else error.value = Error.value;
@@ -53,8 +60,7 @@ export const useNotificationsStore = defineStore("Notifications", () => {
         });
 
         watch(events, async () => await refresh());
-        watch(unseen, async (count) => await setBadge(count));
-
+        
         if (Error.value) error.value = Error.value;
 
         return { close }
@@ -73,6 +79,8 @@ export const useNotificationsStore = defineStore("Notifications", () => {
             type: "error",
             message: `Error marking notification as seen: ${error}`,
         });
+
+        await refresh()
     };
 
     const markAsUnseen = async (message: any) => {
@@ -88,6 +96,8 @@ export const useNotificationsStore = defineStore("Notifications", () => {
             type: "error",
             message: `Error marking notification as unseen: ${error}`,
         });
+
+        await refresh()
     };
 
 
@@ -145,6 +155,8 @@ export const useNotificationsStore = defineStore("Notifications", () => {
                 type: "success",
                 message: "Notification deleted successfully",
             });
+
+            await refresh()
         }
 
         const onCancel = () => {
@@ -177,6 +189,7 @@ export const useNotificationsStore = defineStore("Notifications", () => {
         markAsUnseen,
         deleteMessage,
         requestPermission,
+        refresh
     };
 });
 

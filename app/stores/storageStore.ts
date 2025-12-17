@@ -88,6 +88,8 @@ export const useStorageStore = defineStore("storage", () => {
             type: "success",
         });
 
+        await refresh()
+
     };
 
     const patch = async (file: FileData) => {
@@ -108,6 +110,9 @@ export const useStorageStore = defineStore("storage", () => {
             type: "info",
         });
 
+
+        await refresh()
+
     };
 
     const remove = async (file: FileData) => {
@@ -117,7 +122,6 @@ export const useStorageStore = defineStore("storage", () => {
             const { error } = await Request.Delete({ extends: `/${file.id}` })
 
             close();
-            await refresh();
 
             if (error) return addToast({
                 message: "Er is een fout opgetreden tijdens het verwijderen van het bestand.",
@@ -129,6 +133,8 @@ export const useStorageStore = defineStore("storage", () => {
                 message: "Bestand succesvol verwijderd.",
                 type: "success",
             });
+
+            await refresh()
         }
 
         const onCancel = () => { 
