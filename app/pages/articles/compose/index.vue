@@ -2,17 +2,17 @@
 	<div class="">
 		<div class="">
 			<div v-if="editor">
-				<div class="grid grid-cols-1 md:grid-cols-[1fr_auto] h-full">
+				<div class="grid grid-cols-1 md:grid-cols-[1fr_0.35fr] h-full">
 					<div class="z-10 bg-white md:pr-4 md:border-r">
-						<div class="relative flex-1 mt-1 overflow-x-hidden overflow-y-auto outline-none appearance-none md:mt-auto h-[69vh] md:h-[76vh]">
-							<div v-if="editable" class="sticky -top-[2px] z-10 pb-1 bg-white">
+						<div class="relative flex-1 mt-1 overflow-x-hidden overflow-y-auto outline-none appearance-none md:mt-auto h-[71vh] md:h-[79.5vh]">
+							<div v-if="editable" class="sticky top-0 z-10 pb-1 bg-white">
 								<TiptapMenu class="flex items-center p-1 py-1 mb-2 overflow-x-auto underline border rounded-lg bg-gray-50" :editor="editor" />
 							</div>
 
 							<TiptapEditor :editor="editor" />
 						</div>
 
-						<div class="z-10 pt-3 bg-white">
+						<div class="z-10 -mt-2 bg-white">
 							<FormBase :appendToBody :request :schema="schema.article.frontend" v-slot="{ loading }">
 								<div class="sr-only" aria-hidden>
 									<UtilsInput name="title" :initial-value="title" />

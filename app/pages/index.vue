@@ -1,19 +1,11 @@
 <template>
 	<div>
-		<section class="sticky w-full pb-3 mt-1 pt-1 border-b z-20 bg-white -top-[0.05rem] md:-top-0">
-			<div class="flex items-center justify-between w-full gap-2 text-2xl font-bold">
-				<h1>Analytics</h1>
-				<dev-only class="flex"> <a href="/?itsMe" class="mt-2 text-xs font-normal text-blue-600 underline hover:text-blue-800"> Disable tracking </a></dev-only>
-			</div>
-			<p class="w-full text-gray-600 text-pretty">Overzicht van statistieken van je website, inclusief bezoekers, weergaven en bezoekduur.</p>
-		</section>
-
-		<section v-if="analytics" class="relative grid grid-cols-2 gap-4 mt-4 md:grid-cols-4">
+		<section v-if="analytics" class="relative grid grid-cols-2 gap-4 md:grid-cols-4">
 			<article v-for="statistics in analytics.statistics" :key="statistics.label" class="z-10 w-full p-6 bg-white border rounded-lg">
 				<h2 class="text-sm font-semibold text-gray-700">{{ statistics.label }}</h2>
 				<h3 class="mt-4 text-2xl font-extrabold text-gray-900">{{ useFormatDuration(statistics.value, statistics.format) }}</h3>
 				<p :title="`${useFormatDuration(statistics.difference, statistics.format)}`" class="mt-3">
-					<span :class="statistics.positive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'" class="inline-flex items-center px-2 py-1 text-sm font-medium rounded">
+					<span :class="statistics.positive ? 'bg-blue-100 text-blue-800' : 'bg-red-100 text-red-800'" class="inline-flex items-center px-2 py-1 text-sm font-medium rounded">
 						<span class="mr-2" aria-hidden="true">{{ statistics.positive ? "▲" : "▼" }}</span>
 						{{ statistics.percentage | 0 }}%
 					</span>
@@ -26,14 +18,14 @@
 			</p>
 		</section>
 
-		<section class="relative mt-3">
-			<nav class="flex bg-white items-end justify-between py-2 pb-3 mb-3 border-y pr-[0.11rem]">
+		<section class="relative pb-[5.5rem] mt-3 md:pb-0">
+			<nav class="flex items-end justify-between py-2 pb-3 mb-3 border-y pr-[0.11rem]">
 				<div>
 					<h2 class="text-2xl font-bold">Pagina's</h2>
 					<p class="text-gray-600 text-balance">Overzicht van de weergaven van je pagina's in de afgelopen periode.</p>
 				</div>
 
-				<button class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 bg-white border border-gray-300 rounded-lg w-fit hover:bg-blue-50 hover:text-green-600 focus:text-green-600 focus:border-green-500 hover:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-300" aria-label="toggle table" @click="togleTable()">
+				<button class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 transition-colors duration-200 bg-white border border-gray-300 rounded-lg w-fit hover:bg-blue-50 hover:text-blue-600 focus:text-blue-600 focus:border-blue-500 hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300" aria-label="toggle table" @click="togleTable()">
 					<icon :name="!isTableEnabled ? 'akar-icons:full-screen' : 'akar-icons:normal-screen'" class="w-4 h-4" aria-hidden="true" />
 					<span class="sr-only">{{ isTableEnabled ? "Grafiekweergave" : "Tabelweergave" }}</span>
 				</button>
@@ -47,7 +39,7 @@
 
 					<ChartsTable v-else-if="isTableEnabled" title="Pagina's" :data="metricsPages.values" :categories="metricsPages.categories" />
 					<client-only v-else>
-						<ChartsBar :data="metricsPages.values" :categories="metricsPages.categories" :height="230" :y_axis="['bezoekers', 'weergaven', 'bezoeken']" />
+						<ChartsBar :data="metricsPages.values" :categories="metricsPages.categories" :height="350" :y_axis="['bezoekers', 'weergaven', 'bezoeken']" />
 
 						<template #fallback>
 							<div class="flex text-center items-center justify-center min-h-[14rem]">

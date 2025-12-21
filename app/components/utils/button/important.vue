@@ -19,5 +19,5 @@
 		isSmall: { type: Boolean, default: false },
 	});
 
-	const padding = isSmall ? "p-[0.50rem]" : "p-[0.70rem]";
+	const padding = isSmall ? "p-[0.50rem]" : "p-[0.60rem]";
 </script>

@@ -61,20 +61,24 @@ export default defineSupabaseEventHandler(async (event) => {
                     })
                 }
             ],
+
+            
+
+
             metrics: {
                 pages: {
                     categories: {
                         bezoekers: {
                             name: "Bezoekers",
-                            color: "#059669",
+                            color: "#6f97ed",
                         },
                         weergaven: {
                             name: "Weergaven",
-                            color: "#10b981",
+                            color: "#2563eb",
                         },
                         bezoeken: {
                             name: "Bezoeken",
-                            color: "#047857",
+                            color: "#1542a3",
                         },
                     },
                     values: calculateMetrics(pages)

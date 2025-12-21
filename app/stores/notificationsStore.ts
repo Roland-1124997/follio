@@ -50,12 +50,6 @@ export const useNotificationsStore = defineStore("Notifications", () => {
         if (!Error.value && data.value) {
             messages.value = data.value?.data.messages || [];
             unseen.value = data.value?.data.unseen || 0;
-
-            addToast({
-                message: "Notificaties succesvol opgehaald.",
-                type: "success",
-            });
-
             await setBadge(unseen.value);
         }
 

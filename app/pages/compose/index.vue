@@ -1,6 +1,6 @@
 <template>
 	<div class="relative bg-white">
-		<div class="pt-1">
+		<div class="">
 			<FormBase :appendToBody :schema="schema.notification.frontend" :request v-slot="{ loading }">
 				<div class="grid grid-cols-3 gap-2">
 					<div class="sr-only" aria-hidden>
@@ -32,7 +32,7 @@
 
 		<div v-if="editor" class="z-10 bg-white">
 			<TiptapMenu class="flex items-center p-1 py-1 mt-2 mb-2 overflow-x-auto underline border rounded-lg" :editor="editor" :hidden />
-			<div :class="content != '' ? 'gap-4 p-2' : 'p-3'" class="grid grid-cols-1 mt-3 overflow-auto outline-none appearance-none max-h-[68vh] md:max-h-[67vh] rounded-lg bg-gray-50">
+			<div :class="content != '' ? 'gap-4 p-2' : 'p-3'" class="grid grid-cols-1 mt-3 overflow-auto outline-none appearance-none max-h-[62vh] md:max-h-[67vh] rounded-lg bg-gray-50">
 				<TiptapEditor :class="content != '' ? 'px-2 border-l-2 border-yellow-500 max-w-none bg-yellow-50' : ''" :editor="editor" v-model="content" />
 				<div v-if="content" v-html="content" :class="data.origin == 'email' ? 'space-y-4' : ''" class="px-2 border-l-2 border-blue-500 bg-blue-50 text-balance viewer"></div>
 			</div>

@@ -1,39 +1,13 @@
 <template>
 	<div class="">
-		<div class="sticky z-20 w-full pt-1 pb-3 mt-1 bg-white border-b -top-[0.05rem] md:-top-0">
+		<div class="z-20 w-full pt-1 pb-3 border-b ">
 			<div class="flex items-center justify-between w-full gap-2 text-2xl font-bold">
 				<h1>Opslag</h1>
 			</div>
 			<p class="w-full text-gray-600 text-pretty">Overzicht van je opgeslagen bestanden en documenten deze kun je hier beheren.</p>
-
-			<div class="flex items-center justify-between gap-2 p-1 pt-3 mt-1 border-t">
-
-				<UtilsInputSearch 
-					name="search" label="Zoek in bestanden"
-					placeholder="Zoek bestanden..." v-model="query"
-				/>
-
-				<UtilsButtonImportant @click="triggerFileSelect"
-					icon-name="akar-icons:cloud-upload"
-					description="Bestanden uploaden"
-					:isButton="true"
-				/>
-
-				<UtilsButtonImportant @click="storageStore.refresh"
-					icon-name="akar-icons:arrow-right-left"
-					description="Bestanden synchroniseren"
-					:isButton="true"
-				/>
-
-			</div>
-
-			<div class="hidden">
-				<label class="sr-only " for="file">file</label>
-				<input id="file"  ref="inputRef" type="file" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.zip,.rar" @change="handleFileSelect" class="sr-only " />
-			</div>
 		</div>
 
-		<div class="mt-4">
+		<div class="mt-4 pb-[5.5rem] md:pb-0">
 			<div v-if="filteredFiles.length > 0" class="space-y-3">
 				<div class="mb-3">
 					<h2 class="text-sm font-bold text-gray-800">{{ filteredFiles.length }} {{ filteredFiles.length === 1 ? "document" : "documenten" }}</h2>
@@ -127,21 +101,19 @@
 	});
 
 	const storageStore = useStorageStore();
-	const route = useRoute();
-	const router = useRouter();
 
-	const query = ref(route.query.search || "");
-	const inputRef = ref<HTMLInputElement | null>(null);
-
+	const { search } = useSearch()
+	const query = computed(() => search.value || "");
+	
 	const types: FileType[] = [
-		{ extension: "png", label: "Afbeelding", color: "text-green-800", background: "bg-green-50" },
-		{ extension: "jpg", label: "Afbeelding", color: "text-green-800", background: "bg-green-50" },
-		{ extension: "jpeg", label: "Afbeelding", color: "text-green-800", background: "bg-green-50" },
-		{ extension: "gif", label: "Afbeelding", color: "text-green-800", background: "bg-green-50" },
-		{ extension: "webp", label: "Afbeelding", color: "text-green-800", background: "bg-green-50" },
+		{ extension: "png", label: "Afbeelding", color: "text-blue-800", background: "bg-blue-50" },
+		{ extension: "jpg", label: "Afbeelding", color: "text-blue-800", background: "bg-blue-50" },
+		{ extension: "jpeg", label: "Afbeelding", color: "text-blue-800", background: "bg-blue-50" },
+		{ extension: "gif", label: "Afbeelding", color: "text-blue-800", background: "bg-blue-50" },
+		{ extension: "webp", label: "Afbeelding", color: "text-blue-800", background: "bg-blue-50" },
 		{ extension: "pdf", label: "PDF Document", color: "text-red-800", background: "bg-red-50" },
-		{ extension: "doc", label: "Word Document", color: "text-blue-800", background: "bg-blue-50" },
-		{ extension: "docx", label: "Word Document", color: "text-blue-800", background: "bg-blue-50" },
+		{ extension: "doc", label: "Word Document", color: "text-indigo-800", background: "bg-blue-50" },
+		{ extension: "docx", label: "Word Document", color: "text-indigo-800", background: "bg-blue-50" },
 		{ extension: "xls", label: "Excel Sheet", color: "text-green-800", background: "bg-green-50" },
 		{ extension: "xlsx", label: "Excel Sheet", color: "text-green-800", background: "bg-green-50" },
 		{ extension: "ppt", label: "PowerPoint", color: "text-orange-800", background: "bg-orange-50" },
@@ -150,36 +122,7 @@
 		{ extension: "zip", label: "ZIP Archief", color: "text-purple-800", background: "bg-purple-50" },
 	];
 
-	const handleFileSelect = async (event: Event) => {
-		const input = event.target as HTMLInputElement;
-
-		if (input.files) {
-			await storageStore.upload(input.files);
-			input.value = "";
-		}
-	};
-
-	const triggerFileSelect = () => inputRef.value?.click();
-
 	const filteredFiles = computed(() => {
-		const result = storageStore.filter(query.value as string, types);
-
-		if (!query.value) {
-			router.replace({
-				query: {
-					...route.query,
-					search: undefined,
-				},
-			});
-		} else {
-			router.replace({
-				query: {
-					...route.query,
-					search: query.value,
-				},
-			});
-		}
-
-		return result;
+		return storageStore.filter(query.value as string, types);
 	});
 </script>

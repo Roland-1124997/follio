@@ -1,6 +1,6 @@
 <template>
 	<nav aria-label="Breadcrumb" class="py-1">
-		<ol class="flex items-center gap-1 overflow-scroll max-w-[11rem] md:max-w-[30rem]">
+		<ol class="flex items-center gap-1 overflow-scroll">
 			<li v-for="(crumb, index) in breadcrumbs" :key="index" class="flex items-center gap-1 last:truncate">
 				<NuxtLink v-if="index < breadcrumbs.length - 1" :to="crumb.path" class="text-gray-600 transition-colors duration-200 hover:text-gray-900 hover:underline">
 					{{ crumb.label }}

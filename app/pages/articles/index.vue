@@ -1,21 +1,13 @@
 <template>
 	<div class="">
-		<div class="sticky z-20 w-full pt-1 pb-3 mt-1 bg-white border-b -top-[0.05rem] md:-top-0">
+		<div class="z-20 w-full pt-1 pb-3 border-b">
 			<div class="flex items-center justify-between w-full gap-2 text-2xl font-bold">
 				<h1>Artikelen</h1>
 			</div>
 			<p class="w-full text-gray-600 text-pretty">Overzicht van alle artikelen van je website, deze kun je hier lezen en bewerken.</p>
-
-			<div class="flex items-center justify-between gap-2 p-1 pt-3 mt-1 border-t">
-				<UtilsInputSearch name="search" label="Zoek in artikelen" placeholder="Zoek artikelen..." v-model="query" />
-
-				<UtilsButtonImportant to="/articles/compose" icon-name="akar-icons:edit" description="Nieuw artikel schrijven" />
-				<UtilsButtonImportant to="/storage" icon-name="akar-icons:folder" description="ekijk alle opgeslagen bestanden" />
-				
-			</div>
 		</div>
 
-		<div class="grid gap-3 mt-4 md:grid-cols-2">
+		<div class="grid gap-3 mt-4 md:grid-cols-3 pb-[5.5rem] md:pb-0">
 			<div v-for="art in filteredArticles" :key="art.id" class="z-10 flex flex-col h-full p-4 duration-150 bg-white border rounded-lg group hover:bg-gray-50">
 				<div class="flex flex-col flex-1 gap-4">
 					<div class="relative flex flex-col flex-1">
@@ -99,7 +91,9 @@
 
 	const route = useRoute();
 	const article = ref();
-	const query = ref(route.query.search || "");
+
+	const { search } = useSearch()
+	const query = computed(() => search.value || "");
 
 	const Request = useApiHandler<ApiResponse<any>>("/api/articles");
 	const { create, close } = useModal();
@@ -131,10 +125,11 @@
 
 			close();
 
-			if (error) return addToast({
-				message: "Er is een fout opgetreden bij het verwijderen van het artikel",
-				type: "error",
-			});
+			if (error)
+				return addToast({
+					message: "Er is een fout opgetreden bij het verwijderen van het artikel",
+					type: "error",
+				});
 
 			article.value = article.value.filter((art: any) => art.id !== id);
 
@@ -142,11 +137,9 @@
 				message: "Artikel succesvol verwijderd",
 				type: "success",
 			});
-
 		};
 
 		const onCancel = () => {
-
 			close();
 			addToast({
 				message: "Verwijderen geannuleerd",

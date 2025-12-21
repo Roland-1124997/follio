@@ -37,7 +37,7 @@
     :legend-position="LegendPosition.TopLeft" 
     :hide-legend="false" 
     :padding="{
-        top: 15, left: 0, right:0, bottom: 0
+        top: 30, left: 0, right:0, bottom: 0
     }"
     :y-grid-line="true" 
     />

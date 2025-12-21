@@ -52,14 +52,8 @@ export const useStorageStore = defineStore("storage", () => {
 
         const { data, error: Error } = await useFetch<ApiResponse<FileData[]>>("/api/storage")
 
-        if (!Error.value && data.value) {
-            files.value = data.value?.data || [];
-            addToast({
-                message: "Bestanden succesvol opgehaald.",
-                type: "success",
-            });
-        }
-
+        if (!Error.value && data.value) files.value = data.value?.data || [];
+    
         else {
             error.value = Error.value;
             addToast({

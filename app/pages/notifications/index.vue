@@ -1,46 +1,11 @@
 <template>
-	<div class="grid flex-1 grid-cols-1 h-[85dvh] overflow-hidden md:grid-cols-2">
+	<div class="grid flex-1 grid-cols-1 h-[69dvh] md:h-[74dvh] overflow-hidden md:grid-cols-2">
 
 		<h1 class="sr-only">Notificaties Dashboard</h1>
 		
-		
 		<div class="z-10 md:pr-4 md:border-r" :class="{ 'hidden md:block': selected }">
-			<nav class="sticky top-0 z-20 w-full p-1 pb-4 overflow-auto bg-white border-b border-gray-200">
-
-				<UtilsInputSearch 
-					name="search" label="Zoek in berichten"
-					placeholder="Zoek berichten..." v-model="query"
-				/>
-
-				<div class="flex items-center gap-[0.35rem] mt-2">
-					<UtilsButtonImportant
-						to="/compose"
-						icon-name="akar-icons:edit"
-						description="Nieuw bericht schrijven"
-						:isSmall="true"
-					/>
-
-					<button type="button" @click="setFilter('all')" :class="['flex items-center justify-center gap-2 px-4 py-[0.60rem] md:py-2 text-sm font-medium transition-colors duration-200 border rounded-lg outline-none w-fit focus:outline-none focus:ring-2', activeFilter === 'all' ? 'bg-neutral-100 text-neutral-800 border-neutral-400 focus:ring-neutral-400' : 'text-gray-700 bg-white border-gray-300 hover:bg-neutral-50 hover:text-neutral-600 focus:text-neutral-600 focus:border-neutral-500 hover:border-neutral-500 focus:ring-neutral-400']" aria-label="Toon alle berichten">
-						<icon name="akar-icons:filter" class="w-4 h-4" aria-hidden="true" />
-						<span class="hidden md:flex">Alles</span>
-					</button>
-
-					<button type="button" @click="setFilter('gelezen')" :class="['flex items-center justify-center flex-1 gap-2 px-4 py-2 text-sm font-medium transition-colors duration-200 border rounded-lg outline-none focus:outline-none focus:ring-2', activeFilter === 'gelezen' ? 'bg-blue-100 text-blue-800 border-blue-400 focus:ring-blue-300' : 'text-gray-700 bg-white border-gray-300 hover:bg-blue-50 hover:text-blue-600 focus:text-blue-600 focus:border-blue-500 hover:border-blue-500 focus:ring-blue-300']" aria-label="Zoek gelezen berichten">
-						<icon name="akar-icons:open-envelope" class="w-4 h-4" aria-hidden="true" />
-						<span>
-							Gelezen
-						</span>
-					</button>
-
-					<button type="button" @click="setFilter('ongelezen')" :class="['flex items-center justify-center flex-1 gap-2 px-4 py-2 text-sm font-medium transition-colors duration-200 border rounded-lg outline-none focus:outline-none focus:ring-2', activeFilter === 'ongelezen' ? 'bg-red-100 text-red-800 border-red-400 focus:ring-red-300' : 'text-gray-700 bg-white border-gray-300 hover:bg-red-50 focus:text-red-600 hover:text-red-600 focus:border-red-500 hover:border-red-500 focus:ring-red-300']" :aria-pressed="activeFilter === 'ongelezen'" aria-label="Zoek ongelezen berichten">
-						<icon name="akar-icons:envelope" class="w-4 h-4" aria-hidden="true" />
-						<span>
-							Ongelezen
-						</span>
-					</button>
-				</div>
-			</nav>
-			<div class="flex-1 h-[68dvh] overflow-y-auto">
+		
+			<div class="flex-1 h-full overflow-y-auto">
 				<div v-if="filteredMessages.length === 0" class="flex flex-col items-center justify-center h-full p-8 text-gray-500 bg-white">
 					<icon name="akar-icons:inbox" class="w-16 h-16 mb-4 text-gray-300" aria-hidden="true" />
 					<h3 class="mb-2 text-lg font-medium">Geen berichten</h3>
@@ -182,6 +147,9 @@
 	const router = useRouter();
 	const messages = computed(() => ({ data: { messages: notificationsStore.messages } }));
 
+	const { search } = useSearch();
+	const { filter } = useFilter();
+
 	// ***************************************************************************
 
 	const compose = async (payload: Record<string, any>) => {
@@ -195,7 +163,8 @@
 		});
 	};
 
-	const query = ref((route.query.search) || "");
+	const query = computed(() => search.value || "");
+	const activeFilter = computed(() => filter.value || "all");
 
 	const selected = ref<any | null>(null);
 
@@ -225,21 +194,6 @@
 
 	// ***************************************************************************
 
-	const activeFilter = ref(route.query.filter || "all");
-
-	const setFilter = async (filterType: string) => {
-		activeFilter.value = filterType;
-
-		router.push({
-			query: {
-				...router.currentRoute.value.query,
-				filter: filterType,
-			},
-		});
-
-		await refresh();
-	};
-
 	const activeMessageId = computed(() => route.query.id);
 
 	if (activeMessageId.value) {
@@ -264,11 +218,6 @@
 			else if (activeFilter.value === "ongelezen") return !flags.includes('\\Seen');
 			
 		});
-
-		router.replace({ query: { 
-			...route.query, 
-			filter: activeFilter.value 
-		}});
 
 		if (query.value) {
 			filtered = filtered.filter((message: any) => {
