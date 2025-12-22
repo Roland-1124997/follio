@@ -26,7 +26,7 @@
 					</NuxtLink>
 				</nav>
 
-				<div class="p-3 border-t">
+				<div class="p-3 mb-3 border-t md:mb-0">
 					<button @click="logout" class="flex items-center w-full gap-3 px-3 py-2 text-gray-700 transition-colors rounded-lg hover:bg-red-50 hover:text-red-600">
 						<Icon name="akar-icons:door" class="w-5 h-5" />
 						<span>Uitloggen</span>

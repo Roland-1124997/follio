@@ -1,16 +1,20 @@
 
 import type { H3Event } from "h3";
-import type { SupabaseClient, Session, User } from "@supabase/supabase-js";
+import { SupabaseClient, Session, User, AuthError } from "@supabase/supabase-js";
 
 export const useGetSession = async (client: SupabaseClient, currentSession: Session | Omit<Session, "user">) => {
     
     const stored = useStorage<User>(`sessions`);
     const cached = await stored.getItem(`session`);
     
-    if(!currentSession?.access_token) return await client.auth.getUser(currentSession?.access_token || "non_Existing");
+    if(!currentSession?.access_token) return {
+        data: { user: null }, 
+        error: new AuthError('The user does not have an active session',)
+    };
+    
     if(cached) return { data: { user: cached }, error: null };
     
-    const { data, error } = await client.auth.getUser(currentSession?.access_token || "non_Existing");
+    const { data, error } = await client.auth.getUser(currentSession?.access_token);
     if(!error && data) await stored.setItem(`session`, data.user, { ttl: 60 * 5 });
     
     return { data, error };
