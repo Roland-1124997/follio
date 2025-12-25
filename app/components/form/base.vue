@@ -1,6 +1,6 @@
 <template>
-	<Form :validation-schema="schema" @submit="handleSubmit" class="space-y-6">
-		<slot :loading="loading"></slot>
+	<Form :validation-schema="schema" v-slot="{ errors, meta }" @submit="handleSubmit" class="space-y-6">
+		<slot :loading :errors :meta></slot>
 	</Form>
 </template>
 

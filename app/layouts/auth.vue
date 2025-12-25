@@ -3,21 +3,20 @@
 		<UtilsDotPattern class="opacity-60" :width="20" :height="20" :cx="1" :cy="1" :cr="1" />
 
 		<div class="relative hidden lg:flex lg:w-2/3 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-300">
-			
 			<div class="relative z-10 flex flex-col justify-between w-full p-12 xl:p-16">
 				<div>
 					<div class="flex items-center space-x-3">
 						<div class="flex items-center justify-center w-12 h-12 bg-white rounded-xl">
 							<Icon name="akar-icons:briefcase" class="text-gray-900 w-7 h-7" />
 						</div>
-						<span class="text-2xl font-bold text-white">Dashboard</span>
+						<span class="text-2xl font-bold text-white">Buildboard</span>
 					</div>
 				</div>
 
 				<div class="space-y-6">
 					<h2 class="text-4xl font-bold leading-tight text-white xl:text-5xl">
 						Welkom terug bij<br />
-						je portfolio
+						je dashboard
 					</h2>
 					<p class="max-w-md text-lg text-gray-300">Je persoonlijke dashboard voor het beheren van artikelen, het inzien van emails en het analyseren van je website statistieken.</p>
 
@@ -54,16 +53,13 @@
 						<div class="flex items-center justify-center w-12 h-12 bg-blue-600 rounded-xl">
 							<Icon name="akar-icons:briefcase" class="text-white w-7 h-7" />
 						</div>
-						<span class="text-2xl font-bold text-gray-900">
-							Dashboard
-						</span>
+						<span class="text-2xl font-bold text-gray-900"> Buildboard </span>
 					</div>
 				</div>
 
 				<main>
 					<slot></slot>
 				</main>
-
 			</div>
 		</div>
 		<UtilsToast />

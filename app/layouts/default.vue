@@ -7,7 +7,7 @@
 						<div class="flex items-center justify-center w-8 h-8 bg-blue-600 rounded-lg">
 							<Icon name="akar-icons:briefcase" class="w-5 h-5 text-white" />
 						</div>
-						<h1 class="text-xl font-bold text-gray-800">Dashboard</h1>
+						<h1 class="text-xl font-bold text-gray-800">Buildboard</h1>
 					</div>
 
 					<button @click="isMobileMenuOpen = false" class="flex items-center justify-center p-2 rounded-lg lg:hidden hover:bg-gray-100">
