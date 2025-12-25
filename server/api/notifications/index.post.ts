@@ -31,17 +31,6 @@ export default defineSupabaseEventHandler(async (event, { server }) => {
         body: html + referentie 
     });
 
-    // const { error } = await server.from("berichten").insert({
-    //     from: {
-    //         name: request.naam,
-    //         address: request.email,
-    //     },
-    //     subject: request.onderwerp,
-    //     preview: sanitizeHtml(html),
-    //     html: sanitizeHtml(html),
-    //     origin: "bericht",
-    // })
-
     if (error) return useReturnResponse(event, internalServerError);
 
     return useReturnResponse(event, {

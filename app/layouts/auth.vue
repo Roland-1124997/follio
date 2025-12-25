@@ -2,7 +2,7 @@
 	<div class="fixed top-0 left-0 flex w-full h-screen">
 		<UtilsDotPattern class="opacity-60" :width="20" :height="20" :cx="1" :cy="1" :cr="1" />
 
-		<div class="relative hidden lg:flex lg:w-2/3 bg-gradient-to-br from-black via-neutral-800 to-black">
+		<div class="relative hidden lg:flex lg:w-2/3 bg-gradient-to-br from-blue-950 via-blue-900 to-blue-300">
 			
 			<div class="relative z-10 flex flex-col justify-between w-full p-12 xl:p-16">
 				<div>
@@ -51,7 +51,7 @@
 			<div class="w-full max-w-md mx-auto">
 				<div class="mt-12 mb-8 lg:hidden">
 					<div class="flex items-center space-x-3">
-						<div class="flex items-center justify-center w-12 h-12 bg-black rounded-xl">
+						<div class="flex items-center justify-center w-12 h-12 bg-blue-600 rounded-xl">
 							<Icon name="akar-icons:briefcase" class="text-white w-7 h-7" />
 						</div>
 						<span class="text-2xl font-bold text-gray-900">

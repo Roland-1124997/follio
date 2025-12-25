@@ -16,8 +16,8 @@ const routes = cachedFunction(() => {
 
     return {
         "/": {
-            label: "Dashboard",
-            iconName: "akar-icons:dashboard",
+            label: "Statistieken",
+            iconName: "akar-icons:statistic-up",
         },
         "/notifications": {
             label: "Notificaties",
@@ -28,7 +28,7 @@ const routes = cachedFunction(() => {
                 groupWithFilters: true,
                 buttons: [
                     createButton({
-                        to: "/compose",
+                        to: "/notifications/compose",
                         description: "Nieuw bericht schrijven",
                         isSmall: true,
                     }),

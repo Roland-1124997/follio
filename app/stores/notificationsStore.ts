@@ -200,7 +200,7 @@ export const useNotifications = defineStore("Notifications", () => {
         const router = useRouter();
 
         router.push({
-            path: "/compose",
+            path: "/notifications/compose",
             query: {
                 reply: "true",
             },

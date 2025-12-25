@@ -6,7 +6,7 @@
 					{{ crumb.label }}
 				</NuxtLink>
 
-				<span v-else class="font-bold text-gray-900 truncate ">
+				<span v-else class="font-bold truncate text-gray-950 ">
 					{{ crumb.label.split(' ')[0] }}
 				</span>
 
@@ -30,13 +30,13 @@
 	const route = useRoute();
 
 	const breadcrumbs = computed(() => {
-		if (props.items) {
-			return props.items;
-		}
-
+		if (props.items) return props.items;
+		
 		const paths = route.path.split("/").filter(Boolean);
-		const crumbs: Breadcrumb[] = [{ label: "Dashboard", path: "/" }];
+		const crumbs: Breadcrumb[] = [{ label: "Home", path: "/" }];
 
+		if (paths.length == 0 && crumbs[0]) crumbs[0].label = "Statistieken";
+		
 		let currentPath = "";
 		paths.forEach((path) => {
 			currentPath += `/${path}`;
