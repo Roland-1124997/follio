@@ -74,5 +74,3 @@ bun run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
-
-https://teamtreehouse.com/community/how-do-you-add-classes-and-ids-to-template-blocks-in-flask
