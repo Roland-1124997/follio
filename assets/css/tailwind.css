@@ -241,3 +241,27 @@ li::marker {
     @apply hover:text-gray-300 
 }
 
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    @apply border outline-none appearance-none autofill;
+}
+
+@layer utilities {
+    .autofill {
+        -webkit-box-shadow: 0 0 0 30px #e7eff3 inset !important;
+        -webkit-text-fill-color: #262626 !important;
+        box-shadow: 0 0 0 30px #e7eff3 inset !important;
+        background-clip: content-box !important;
+    }
+
+    .otpLight {
+        -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+        -webkit-text-fill-color: #000000 !important;
+        box-shadow: 0 0 0 30px #ffffff inset !important;
+        background-clip: content-box !important;
+    }
+
+}
