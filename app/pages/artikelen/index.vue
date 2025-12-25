@@ -15,7 +15,7 @@
 							<h2 class="text-lg font-bold leading-tight capitalize text-slate-900">{{ art.title }}</h2>
 
 							<div class="flex items-center gap-1 p-[0.29rem] px-2 text-xs text-gray-100 rounded-lg w-fit bg-neutral-900 font-mono hover:bg-neutral-800 select-none">
-								<NuxtLink class="flex items-center justify-center gap-1 hover:text-gray-300" :to="`/articles/compose?edit=${art.id}`">
+								<NuxtLink class="flex items-center justify-center gap-1 hover:text-gray-300" :to="`/artikelen/compose?edit=${art.id}`">
 									<icon name="akar-icons:edit" class="w-4 h-4" aria-hidden="true" />
 									<span class="hidden md:inline">Bewerken</span>
 								</NuxtLink>
@@ -68,7 +68,7 @@
 		description: "Overzicht van alle artikelen en blog posts.",
 		ogTitle: "Artikelen Dashboard",
 		ogDescription: "Overzicht van alle artikelen en blog posts.",
-		ogUrl: "/articles",
+		ogUrl: "/artikelen",
 		ogImage: "/icons/icon_512.svg",
 		twitterTitle: "Artikelen Dashboard",
 		twitterDescription: "Overzicht van alle artikelen en blog posts.",

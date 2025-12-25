@@ -17,7 +17,8 @@
 				</div>
 
 				<nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-					<NuxtLink v-for="(route, to) in routes" :key="to" :to="`${to}`" class="flex items-center gap-3 px-3 py-2 text-gray-700 transition-colors rounded-lg hover:bg-blue-100 hover:text-blue-800" @click="isMobileMenuOpen = false">
+					
+					<NuxtLink v-for="(route, to) in routes" :key="to" :to="`${to}`" :class="routerActiveRelatedClass(to)" class="flex items-center gap-3 px-3 py-2 text-gray-700 transition-colors rounded-lg hover:bg-blue-100 hover:text-blue-800" @click="isMobileMenuOpen = false">
 						<Icon :name="route.iconName" class="w-5 h-5" />
 						<span class="flex-1">{{ route.label }}</span>
 						<span v-if="route.alert && notificationsStore.unseen > 0" class="px-2 py-0.5 flex items-center justify-center text-xs font-medium text-white bg-red-600 rounded-full">
@@ -114,6 +115,18 @@
 		}
 	};
 
+	const routerActiveRelatedClass = (to: string) => {
+		const route = useRoute();
+
+		const path = route.path.replace('/', '')
+		const target = to.replace('/', '')
+
+		const className = 'router-link-related-active'
+		const isRelated = to !== '/' && path.startsWith(target)
+
+		return isRelated ? className : '';
+	}
+
 	await notificationsStore.initialPayload();
 
 	const { close: closeNotifications } = await notificationsStore.realTime();
@@ -146,6 +159,11 @@
 </script>
 
 <style scoped>
+
+	.router-link-related-active {
+		@apply text-blue-800 bg-blue-50 hover:bg-blue-100;
+	}
+
 	.router-link-active {
 		@apply text-blue-800 bg-blue-100 hover:bg-blue-100;
 	}

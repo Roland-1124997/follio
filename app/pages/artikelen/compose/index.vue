@@ -55,7 +55,7 @@
 		description: "Schrijf een nieuw artikel of blog post voor je website.",
 		ogTitle: "Artikel shrijven",
 		ogDescription: "Schrijf een nieuw artikel of blog post voor je website.",
-		ogUrl: "/articles",
+		ogUrl: "/artikelen",
 		ogImage: "/icons/icon_512.svg",
 		twitterTitle: "Artikel shrijven",
 		twitterDescription: "Schrijf een nieuw artikel of blog post voor je website.",

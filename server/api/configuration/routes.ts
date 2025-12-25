@@ -41,14 +41,14 @@ const routes = cachedFunction(() => {
                 search: createSearch("artikelen"),
             },
         },
-        "/articles": {
+        "/artikelen": {
             label: "Artikelen",
             iconName: "akar-icons:newspaper",
             toolbar: {
                 stacked: false,
                 buttons: [
                     createButton({
-                        to: "/articles/compose",
+                        to: "/artikelen/compose",
                         description: "Nieuw artikel schrijven",
                     }),
                 ],
@@ -87,7 +87,7 @@ const routes = cachedFunction(() => {
         }
     }
 }, {
-    maxAge: 0,
+    maxAge: 60 * 60,
     name: 'route-configuration',
 });
 
