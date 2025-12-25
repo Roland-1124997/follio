@@ -167,7 +167,7 @@
 	const request: requestOptions<{ id: number }> = {
 		url: editId.value ? `/api/articles/${editId.value}` : "/api/articles",
 		method: editId.value ? "PATCH" : "POST",
-		onsuccess: (response) => upload(response.data?.id),
+		onsuccess: async (response) => upload(response.data?.id),
 		onfailure: () =>
 			addToast({
 				message: failureMessage,

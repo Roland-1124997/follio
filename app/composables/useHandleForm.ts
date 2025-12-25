@@ -33,13 +33,13 @@ const errorHandler = (error: ErrorResponse, request: requestOptions, actions: Fo
     return;
 }
 
-const successHandler = (data: ApiResponse<unknown>, request: requestOptions) => {
+const successHandler = async (data: ApiResponse<unknown>, request: requestOptions) => {
     const status = data.status;
     const redirect = status.redirect
 
     if (status) {
 
-        if (request.onsuccess) request.onsuccess(data);
+        if (request.onsuccess) await request.onsuccess(data);
 
         if (request.successMessage) addToast({
             type: "success",

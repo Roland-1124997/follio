@@ -29,7 +29,7 @@ export default defineSupabaseEventHandler(async (event, { server }) => {
             code: 200,
             message: 'Artikel succesvol aangemaakt',
             success: true,
-            redirect: `/artikelen/compose?edit=${data.id}`,
+            redirect: `/artikelen`,
         },
         data: {
             id: data.id,
