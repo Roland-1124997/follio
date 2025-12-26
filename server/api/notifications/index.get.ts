@@ -13,7 +13,7 @@ export default defineSupabaseEventHandler(async (event, { server }) => {
         status: {
             code: 200,
             success: true,
-            message: 'Notificaties succesvol opgehaald',
+            message: 'Berichten succesvol opgehaald',
         },
         data: list
     });

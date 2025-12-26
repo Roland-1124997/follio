@@ -10,7 +10,7 @@ export default defineSupabaseEventHandler(async (event, { server }) => {
     return useReturnResponse(event, {
         status: {
             success: true,
-            message: "Logged out successfully",
+            message: "je bent uitgelogd",
             redirect: "/auth/login",
             code: 200
         }

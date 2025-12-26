@@ -44,7 +44,7 @@ export const useStorage = defineStore("storage", () => {
         else {
             error.value = Error;
             addToast({
-                message: "Er is een fout opgetreden bij het ophalen van bestanden.",
+                message: "Er is een fout opgetreden bij het verversen van de bestanden.",
                 type: "error",
             });
         }

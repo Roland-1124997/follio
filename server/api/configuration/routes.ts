@@ -19,8 +19,8 @@ const routes = cachedFunction(() => {
             label: "Statistieken",
             iconName: "akar-icons:statistic-up",
         },
-        "/notifications": {
-            label: "Notificaties",
+        "/berichten": {
+            label: "Berichten",
             iconName: "akar-icons:inbox",
             alert: true,
             toolbar: {
@@ -28,7 +28,7 @@ const routes = cachedFunction(() => {
                 groupWithFilters: true,
                 buttons: [
                     createButton({
-                        to: "/notifications/compose",
+                        to: "/berichten/opstellen",
                         description: "Nieuw bericht schrijven",
                         isSmall: true,
                     }),
@@ -48,15 +48,15 @@ const routes = cachedFunction(() => {
                 stacked: false,
                 buttons: [
                     createButton({
-                        to: "/artikelen/compose",
+                        to: "/artikelen/opstellen",
                         description: "Nieuw artikel schrijven",
                     }),
                 ],
                 search: createSearch("artikelen"),
             },
         },
-        "/storage": {
-            label: "Storage",
+        "/opslagruimte": {
+            label: "Opslagruimte",
             iconName: "akar-icons:folder",
             toolbar: {
                 stacked: false,

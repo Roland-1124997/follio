@@ -15,7 +15,7 @@ export default defineSupabaseEventHandler(async (event, { server }) => {
     return useReturnResponse(event, {
         status: {
             code: 200,
-            message: 'Bestand gepubliceerd bijgewerkt',
+            message: !data.published ? "Bestand succesvol zichtbaar gemaakt." : "Bestand succesvol verborgen.",
             success: true
         }
     })

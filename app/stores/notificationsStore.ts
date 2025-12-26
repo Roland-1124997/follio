@@ -45,7 +45,7 @@ export const useNotifications = defineStore("Notifications", () => {
         else {
             error.value = Error;
             addToast({
-                message: "Er is een fout opgetreden bij het ophalen van notificaties.",
+                message: "Er is een fout opgetreden bij het verversen van de berichten.",
                 type: "error",
             });
         }
@@ -65,7 +65,7 @@ export const useNotifications = defineStore("Notifications", () => {
         else {
             error.value = Error.value;
             addToast({
-                message: "Er is een fout opgetreden bij het ophalen van notificaties.",
+                message: "Er is een fout opgetreden bij het ophalen van berichten.",
                 type: "error",
             });
         }
@@ -97,7 +97,7 @@ export const useNotifications = defineStore("Notifications", () => {
 
         if (error) return addToast({
             type: "error",
-            message: `Error marking notification as seen: ${error}`,
+            message: `Fout bij het markeren van de notificatie als gelezen:`,
         });
 
         await refresh()
@@ -114,7 +114,7 @@ export const useNotifications = defineStore("Notifications", () => {
 
         if (error) return addToast({
             type: "error",
-            message: `Error marking notification as unseen: ${error}`,
+            message: `Fout bij het markeren van de notificatie als ongelezen:`,
         });
 
         await refresh()
@@ -130,7 +130,7 @@ export const useNotifications = defineStore("Notifications", () => {
 
                 if (permission !== 'granted') {
                     addToast({
-                        message: `Notification permisions denied`,
+                        message: `notificatie permissies geweigerd!`,
                         type: "error",
                         duration: 5000,
                     })
@@ -138,7 +138,7 @@ export const useNotifications = defineStore("Notifications", () => {
                 }
 
                 addToast({
-                    message: `Notification permissions granted`,
+                    message: `Notificatie permissies verleend!`,
                     type: "success",
                     duration: 5000,
                 })
@@ -147,7 +147,7 @@ export const useNotifications = defineStore("Notifications", () => {
             })
 
             .catch((error) => addToast({
-                message: `Error requesting notification permissions: ${error}`,
+                message: `Fout bij het aanvragen van notificatie permissies: ${error}`,
                 type: "error",
                 duration: 5000,
             }));
@@ -166,12 +166,12 @@ export const useNotifications = defineStore("Notifications", () => {
 
             if (error) return addToast({
                 type: "error",
-                message: `Error deleting notification: ${error}`,
+                message: `Fout bij het verwijderen van het bericht`,
             });
 
             addToast({
                 type: "success",
-                message: "Notification deleted successfully",
+                message: "Bericht succesvol verwijderd",
             });
 
             await refresh();
@@ -200,7 +200,7 @@ export const useNotifications = defineStore("Notifications", () => {
         const router = useRouter();
 
         router.push({
-            path: "/notifications/compose",
+            path: "/berichten/opstellen",
             query: {
                 reply: "true",
             },

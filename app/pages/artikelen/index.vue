@@ -15,7 +15,7 @@
 							<h2 class="text-lg font-bold leading-tight capitalize text-slate-900">{{ art.title }}</h2>
 
 							<div class="flex items-center gap-1 p-[0.29rem] px-2 text-xs text-gray-100 rounded-lg w-fit bg-neutral-900 font-mono hover:bg-neutral-800 select-none">
-								<NuxtLink class="flex items-center justify-center gap-1 hover:text-gray-300" :to="`/artikelen/compose?edit=${art.id}`">
+								<NuxtLink class="flex items-center justify-center gap-1 hover:text-gray-300" :to="`/artikelen/opstellen?edit=${art.id}`">
 									<icon name="akar-icons:edit" class="w-4 h-4" aria-hidden="true" />
 									<span class="hidden md:inline">Bewerken</span>
 								</NuxtLink>

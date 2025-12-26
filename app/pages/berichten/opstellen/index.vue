@@ -40,7 +40,7 @@
 		description: "Stel een nieuw bericht of e-mail op en verstuur deze.",
 		ogTitle: "Bericht Opstellen",
 		ogDescription: "Stel een nieuw bericht of e-mail op en verstuur deze.",
-		ogUrl: "/compose",
+		ogUrl: "/berichten/opstellen",
 		ogImage: "/icons/icon_512.png",
 		twitterTitle: "Bericht Opstellen",
 		twitterDescription: "Stel een nieuw bericht of e-mail op en verstuur deze.",

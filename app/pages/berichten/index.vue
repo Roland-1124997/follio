@@ -111,13 +111,13 @@
 	});
 
 	useSeoMeta({
-		title: "Notificaties Dashboard",
+		title: "Berichten Dashboard",
 		description: "Bekijk en beheer al je berichten, e-mails en notificaties op één plek.",
-		ogTitle: "Notificaties Dashboard",
+		ogTitle: "Berichten Dashboard",
 		ogDescription: "Bekijk en beheer al je berichten, e-mails en notificaties op één plek.",
-		ogUrl: "/notifications",
+		ogUrl: "/berichten",
 		ogImage: "/icons/icon_512.png",
-		twitterTitle: "Notificaties Dashboard",
+		twitterTitle: "Berichten Dashboard",
 		twitterDescription: "Bekijk en beheer al je berichten, e-mails en notificaties op één plek.",
 		twitterImage: "/icons/icon_512.png",
 		twitterCard: "app",

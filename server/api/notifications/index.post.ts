@@ -37,8 +37,8 @@ export default defineSupabaseEventHandler(async (event, { server }) => {
         status: {
             code: 200,
             success: true,
-            message: "Notificatie succesvol verzonden",
-            redirect: "/notifications",
+            message: "Bericht succesvol verzonden",
+            redirect: "/berichten",
         }
     });
 })

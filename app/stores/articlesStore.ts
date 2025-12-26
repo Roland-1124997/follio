@@ -20,7 +20,7 @@ export const useArticles = defineStore("articles", () => {
         else {
             error.value = Error.value;
             addToast({
-                message: "Er is een fout opgetreden bij het ophalen van de analytics gegevens.",
+                message: "Er is een fout opgetreden bij het ophalen van artikelen.",
                 type: "error",
             });
         }
