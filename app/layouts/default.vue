@@ -50,7 +50,7 @@
 				<div class="sticky top-0 left-0 flex items-center justify-between w-full gap-2 p-1"></div>
 
 				<div class="flex items-center gap-2 md:hidden">
-					<UtilsButton @click="notificationsStore.requestPermission()" to="/notifications" iconName="akar-icons:inbox" :options="{ count: notificationsStore.unseen }" />
+					<UtilsButton @click="notificationsStore.requestPermission()" to="/berichten" iconName="akar-icons:inbox" :options="{ count: notificationsStore.unseen }" />
 				</div>
 			</header>
 
