@@ -7,7 +7,7 @@
 				<div>
 					<div class="flex items-center space-x-3">
 						<div class="flex items-center justify-center w-12 h-12 bg-white rounded-xl">
-							<Icon name="akar-icons:briefcase" class="text-gray-900 w-7 h-7" />
+							<NuxtImg src="\icons\icon_512-white.svg" alt="Buildboard Logo" draggable="false" class="rounded-lg w-11 h-11 " />
 						</div>
 						<span class="text-2xl font-bold text-white">Buildboard</span>
 					</div>
@@ -16,7 +16,7 @@
 				<div class="space-y-6">
 					<h2 class="text-4xl font-bold leading-tight text-white xl:text-5xl">
 						Welkom terug bij<br />
-						je dashboard
+						Buildboard
 					</h2>
 					<p class="max-w-md text-lg text-gray-300">Je persoonlijke dashboard voor het beheren van artikelen, het inzien van emails en het analyseren van je website statistieken.</p>
 
@@ -51,7 +51,7 @@
 				<div class="mt-12 mb-8 lg:hidden">
 					<div class="flex items-center space-x-3">
 						<div class="flex items-center justify-center w-12 h-12 bg-blue-600 rounded-xl">
-							<Icon name="akar-icons:briefcase" class="text-white w-7 h-7" />
+							<NuxtImg src="\icons\icon_512-blue.svg" alt="Buildboard Logo" draggable="false" class="w-10 h-10 rounded-lg " />
 						</div>
 						<span class="text-2xl font-bold text-gray-900"> Buildboard </span>
 					</div>
